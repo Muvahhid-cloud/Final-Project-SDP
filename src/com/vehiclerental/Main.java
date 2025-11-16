@@ -73,7 +73,38 @@ public class Main {
                     IPaymentStrategy paymentStrategy = (payOpt == 1)
                             ? new CreditCardPayment()
                             : new CashPayment();
+
+                    System.out.print("GPS? (y/n): ");
+                    boolean gps = sc.nextLine().equalsIgnoreCase("y");
+
+                    System.out.print("Insurance? (y/n): ");
+                    boolean ins = sc.nextLine().equalsIgnoreCase("y");
+
+                    service.rentVehicle(name, renter, ps, paymentStrategy, gps, ins, sc, duration);
                     break;
+
+                case 3:
+                    System.out.print("Your name: ");
+                    String rn = sc.nextLine();
+
+                    System.out.print("Vehicle name: ");
+                    String vn = sc.nextLine();
+
+                    service.returnVehicle(vn, rn);
+                    break;
+
+                case 4:
+                    System.out.print("Enter your name: ");
+                    String n = sc.nextLine();
+                    service.subscribe(new Customer(n));
+                    break;
+
+                case 5:
+                    System.out.println("Goodbye!");
+                    return;
+
+                default:
+                    System.out.println("Invalid.");
             }
         }
     }
