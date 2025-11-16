@@ -30,3 +30,51 @@ public class Main {
         inventory.addVehicle(electricFactory.createCar2()); // Chery
         inventory.addVehicle(electricFactory.createCar3()); // Zeekr
         inventory.addVehicle(electricFactory.createCar4()); // Lixiang
+
+        while (true) {
+            System.out.println("\n--- Vehicle Rental Service ---");
+            System.out.println("1. View vehicles");
+            System.out.println("2. Rent");
+            System.out.println("3. Return");
+            System.out.println("4. Subscribe");
+            System.out.println("5. Exit");
+            System.out.print("Option: ");
+
+            int opt = sc.nextInt();
+            sc.nextLine();
+
+            switch (opt) {
+                case 1:
+                    service.listVehicles();
+                    break;
+
+                case 2:
+                    System.out.print("Your name: ");
+                    String renter = sc.nextLine();
+                    System.out.print("Enter vehicle name: ");
+                    String name = sc.nextLine();
+                    System.out.print("Pricing (1 Hourly, 2 Daily): ");
+                    int p = sc.nextInt();
+                    sc.nextLine();
+                    PricingStrategy ps = (p == 1) ? new HourlyPricing() : new DailyPricing();
+
+                    int duration;
+                    if (p == 1) {
+                        System.out.print("Enter number of hours: ");
+                    } else {
+                        System.out.print("Enter number of days: ");
+                    }
+                    duration = sc.nextInt();
+                    sc.nextLine();
+
+                    System.out.print("Payment (1 Card, 2 Cash): ");
+                    int payOpt = sc.nextInt();
+                    sc.nextLine();
+                    IPaymentStrategy paymentStrategy = (payOpt == 1)
+                            ? new CreditCardPayment()
+                            : new CashPayment();
+                    break;
+            }
+        }
+    }
+}
